@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard · Plano de Manutenção SIGAMNT | Macaé Navegação</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:    #0B2540;
+  --navy2:   #163660;
+  --navy3:   #1E4FA0;
+  --teal:    #0B5E5E;
+  --teal2:   #148080;
+  --steel:   #2D5A90;
+  --wood:    #6B3E1E;
+  --wood2:   #9A5C2E;
+  --green:   #14542E;
+  --green2:  #1F7A44;
+  --amber:   #92420A;
+  --amber2:  #C05A0E;
+  --red:     #7F1616;
+  --red2:    #B02020;
+  --gold:    #C8960C;
+  --gold2:   #F5C842;
+  --paper:   #F0EBE0;
+  --paper2:  #E4DDD0;
+  --ink:     #18202E;
+  --ink2:    #2C3A4E;
+  --ink3:    #4A5A6E;
+  --ink4:    #7A8A9E;
+  --white:   #FFFFFF;
+  --border:  #C8C0B0;
+  --r:       6px;
+  --ff-d:    'Bebas Neue', sans-serif;
+  --ff-b:    'DM Sans', sans-serif;
+  --ff-m:    'DM Mono', monospace;
+  --shadow:  rgba(11,37,64,.14);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:14px;scroll-behavior:smooth}
+body{
+  font-family:var(--ff-b);
+  background:var(--paper);
+  color:var(--ink);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* ── TEXTURE ── */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:
+    radial-gradient(ellipse 80% 60% at 15% 10%, rgba(30,79,160,.06) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 85% 90%, rgba(11,94,94,.05) 0%, transparent 60%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='none'/%3E%3Ccircle cx='1' cy='1' r='.4' fill='rgba(11,37,64,.04)'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;
+}
+
+.z1{position:relative;z-index:1}
+
+/* ════════ HEADER ════════ */
+.header{
+  background:linear-gradient(135deg, var(--navy) 0%, var(--navy2) 60%, #1a3a6a 100%);
+  border-bottom:3px solid var(--navy3);
+  padding:0 48px;
+  display:flex;align-items:center;gap:32px;
+  box-shadow:0 4px 32px rgba(0,0,0,.25);
+  position:sticky;top:0;z-index:200;
+  min-height:72px;
+}
+
+.logo-mark{
+  width:44px;height:44px;flex-shrink:0;
+  background:linear-gradient(135deg, var(--navy3), var(--teal2));
+  border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;
+  box-shadow:0 2px 12px rgba(0,0,0,.3);
+}
+
+.header-brand{
+  border-right:1px solid rgba(255,255,255,.1);
+  padding-right:28px;
+}
+.brand-name{
+  font-family:var(--ff-d);
+  font-size:24px;letter-spacing:2px;color:#fff;line-height:1;
+}
+.brand-sub{
+  font-size:9px;letter-spacing:3px;text-transform:uppercase;
+  color:rgba(255,255,255,.35);margin-top:2px;
+}
+
+.header-doc{flex:1}
+.doc-title{
+  font-family:var(--ff-d);
+  font-size:20px;letter-spacing:3px;
+  color:rgba(255,255,255,.9);
+}
+.doc-meta{
+  font-family:var(--ff-m);font-size:9px;
+  color:rgba(255,255,255,.3);margin-top:3px;
+}
+
+.header-kpis{display:flex;gap:8px;align-items:center}
+.hkpi{
+  text-align:center;padding:8px 16px;
+  border-radius:30px;border:1px solid rgba(255,255,255,.1);
+  background:rgba(255,255,255,.05);
+}
+.hkpi-n{
+  font-family:var(--ff-d);font-size:26px;letter-spacing:1px;
+  color:#fff;line-height:1;
+}
+.hkpi-l{
+  font-size:8px;letter-spacing:2px;text-transform:uppercase;
+  color:rgba(255,255,255,.35);margin-top:2px;
+}
+.hkpi.c1{background:rgba(30,79,160,.3);border-color:rgba(30,79,160,.5)}
+.hkpi.c2{background:rgba(11,94,94,.3);border-color:rgba(11,94,94,.5)}
+.hkpi.c3{background:rgba(107,62,30,.3);border-color:rgba(107,62,30,.5)}
+.hkpi.c4{background:rgba(200,150,12,.2);border-color:rgba(200,150,12,.4)}
+
+.rev-pill{
+  font-family:var(--ff-m);font-size:9px;font-weight:500;
+  letter-spacing:2px;
+  background:rgba(245,200,66,.15);border:1px solid rgba(245,200,66,.35);
+  color:var(--gold2);padding:5px 12px;border-radius:20px;white-space:nowrap;
+}
+
+/* ════════ NAV TABS ════════ */
+.nav-tabs{
+  background:var(--white);
+  border-bottom:2px solid var(--border);
+  padding:0 48px;
+  display:flex;gap:0;
+  box-shadow:0 2px 12px var(--shadow);
+}
+.tab{
+  font-family:var(--ff-b);font-weight:600;font-size:11px;
+  letter-spacing:1.5px;text-transform:uppercase;
+  padding:14px 20px;cursor:pointer;
+  border-bottom:3px solid transparent;
+  color:var(--ink3);
+  transition:all .15s;
+  white-space:nowrap;
+  margin-bottom:-2px;
+}
+.tab:hover{color:var(--navy);border-bottom-color:var(--border)}
+.tab.active{color:var(--navy);border-bottom-color:var(--navy3);background:rgba(30,79,160,.04)}
+
+/* ════════ MAIN LAYOUT ════════ */
+.main{max-width:1440px;margin:0 auto;padding:32px 48px 60px}
+.page{display:none}
+.page.active{display:block}
+
+/* ════════ SECTION TITLES ════════ */
+.section-title{
+  font-family:var(--ff-d);
+  font-size:32px;letter-spacing:3px;
+  color:var(--navy);margin-bottom:4px;
+}
+.section-sub{
+  font-size:12px;color:var(--ink3);
+  letter-spacing:.5px;margin-bottom:24px;
+}
+
+/* ════════ GRID UTILITIES ════════ */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.col-span2{grid-column:span 2}
+
+/* ════════ CARD ════════ */
+.card{
+  background:var(--white);
+  border-radius:var(--r);
+  border:1px solid var(--border);
+  box-shadow:0 2px 12px var(--shadow);
+  overflow:hidden;
+}
+.card-head{
+  padding:16px 20px 12px;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:10px;
+}
+.card-head-title{
+  font-family:var(--ff-b);font-weight:600;font-size:11px;
+  letter-spacing:2px;text-transform:uppercase;color:var(--ink2);
+}
+.card-head-sub{font-size:10px;color:var(--ink4);margin-top:1px}
+.card-badge{
+  margin-left:auto;font-family:var(--ff-m);font-size:10px;
+  background:var(--paper2);color:var(--ink3);
+  padding:3px 10px;border-radius:12px;border:1px solid var(--border);
+}
+.card-body{padding:20px}
+
+/* ════════ STAT CARDS ════════ */
+.stat-card{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  padding:20px 24px;
+  box-shadow:0 2px 10px var(--shadow);
+  position:relative;overflow:hidden;
+}
+.stat-card::before{
+  content:'';
+  position:absolute;top:0;left:0;width:4px;height:100%;
+}
+.stat-card.s-navy::before{background:var(--navy3)}
+.stat-card.s-teal::before{background:var(--teal2)}
+.stat-card.s-wood::before{background:var(--wood2)}
+.stat-card.s-green::before{background:var(--green2)}
+.stat-card.s-amber::before{background:var(--amber2)}
+.stat-card.s-red::before{background:var(--red2)}
+.stat-n{
+  font-family:var(--ff-d);font-size:44px;letter-spacing:1px;
+  color:var(--navy);line-height:1;
+}
+.stat-l{
+  font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--ink3);margin-top:4px;
+}
+.stat-sub{font-size:11px;color:var(--ink4);margin-top:6px}
+
+/* ════════ PROGRESS BAR ════════ */
+.prog-row{margin-bottom:14px}
+.prog-head{display:flex;justify-content:space-between;margin-bottom:5px}
+.prog-label{font-size:11px;font-weight:500;color:var(--ink2)}
+.prog-val{font-family:var(--ff-m);font-size:10px;color:var(--ink3)}
+.prog-track{height:8px;background:var(--paper2);border-radius:4px;overflow:hidden}
+.prog-fill{height:100%;border-radius:4px;transition:width 1s cubic-bezier(.4,0,.2,1)}
+
+/* ════════ FREQ BADGES ════════ */
+.freq{
+  display:inline-block;font-size:9px;font-weight:600;
+  letter-spacing:1.5px;text-transform:uppercase;
+  padding:2px 8px;border-radius:10px;
+}
+.freq.semanal{background:rgba(30,58,110,.12);color:#1e3a6e}
+.freq.mensal{background:rgba(20,84,46,.12);color:var(--green)}
+.freq.semestral{background:rgba(146,66,10,.12);color:var(--amber)}
+.freq.anual{background:rgba(127,22,22,.12);color:var(--red)}
+
+/* ════════ TABLE ════════ */
+.tbl-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:11px}
+th{
+  font-family:var(--ff-b);font-weight:600;font-size:9px;
+  letter-spacing:2px;text-transform:uppercase;
+  padding:10px 14px;text-align:left;
+  background:var(--paper);color:var(--ink3);
+  border-bottom:2px solid var(--border);
+  white-space:nowrap;
+}
+td{
+  padding:9px 14px;border-bottom:1px solid var(--border);
+  vertical-align:middle;color:var(--ink2);
+}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(30,79,160,.03)}
+.td-code{font-family:var(--ff-m);font-size:10px;color:var(--navy3);font-weight:500}
+.td-bold{font-weight:600;color:var(--ink)}
+.td-mat-aco{font-weight:600;color:var(--steel)}
+.td-mat-mad{font-weight:600;color:var(--wood2)}
+
+/* ════════ DONUT CHART ════════ */
+.donut-wrap{position:relative;width:160px;height:160px;flex-shrink:0}
+.donut-wrap svg{transform:rotate(-90deg)}
+.donut-center{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+}
+.donut-n{font-family:var(--ff-d);font-size:32px;color:var(--navy);line-height:1}
+.donut-l{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--ink4)}
+
+/* ════════ LEGEND ════════ */
+.legend{display:flex;flex-direction:column;gap:10px;flex:1;justify-content:center}
+.legend-item{display:flex;align-items:center;gap:10px}
+.legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.legend-rect{width:14px;height:8px;border-radius:2px;flex-shrink:0}
+.legend-label{font-size:11px;color:var(--ink2)}
+.legend-val{margin-left:auto;font-family:var(--ff-m);font-size:10px;color:var(--ink3)}
+
+/* ════════ FLEET CARDS ════════ */
+.fleet-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.fleet-card{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--r);overflow:hidden;
+  box-shadow:0 2px 10px var(--shadow);
+  transition:transform .15s, box-shadow .15s;
+}
+.fleet-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px var(--shadow)}
+.fleet-head{
+  padding:14px 18px;
+  display:flex;align-items:center;gap:10px;
+}
+.fleet-id{
+  font-family:var(--ff-m);font-size:10px;font-weight:500;
+  color:rgba(255,255,255,.6);
+}
+.fleet-name{
+  font-family:var(--ff-d);font-size:20px;letter-spacing:1px;
+  color:#fff;line-height:1.1;
+}
+.fleet-type{font-size:9px;color:rgba(255,255,255,.5);letter-spacing:2px;text-transform:uppercase;margin-top:2px}
+.fleet-body{padding:14px 18px}
+.fleet-comp-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:5px 0;border-bottom:1px solid var(--border);font-size:10px;
+}
+.fleet-comp-row:last-child{border-bottom:none}
+.fleet-comp-name{color:var(--ink2)}
+.fleet-comp-count{
+  font-family:var(--ff-m);font-size:10px;color:var(--ink3);
+  background:var(--paper);padding:1px 8px;border-radius:8px;
+}
+.fleet-footer{
+  padding:10px 18px;border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--paper);
+}
+.fleet-total{font-family:var(--ff-m);font-size:11px;color:var(--ink2)}
+.fleet-total-n{font-weight:500;color:var(--navy)}
+.fleet-badge{
+  font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase;
+  padding:3px 9px;border-radius:8px;
+}
+.fleet-badge.ok{background:rgba(20,84,46,.1);color:var(--green)}
+.fleet-badge.pend{background:rgba(127,22,22,.1);color:var(--red)}
+
+/* ════════ TIMELINE / FREQ VIEW ════════ */
+.freq-block{
+  display:grid;
+  grid-template-columns:120px 1fr;
+  gap:0;
+  margin-bottom:12px;
+}
+.freq-label-col{
+  padding:12px 14px;
+  display:flex;align-items:flex-start;gap:8px;
+  border-right:2px solid var(--border);
+}
+.freq-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:2px}
+.freq-col-label{font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase}
+.freq-col-count{font-family:var(--ff-m);font-size:9px;color:var(--ink4);margin-top:2px}
+.freq-items{padding:12px 16px;display:flex;flex-wrap:wrap;gap:6px}
+.freq-item{
+  font-size:10px;padding:3px 10px;
+  border-radius:4px;cursor:default;
+  border:1px solid;
+  transition:transform .1s;
+}
+.freq-item:hover{transform:scale(1.04)}
+.freq-item.semanal{background:rgba(30,58,110,.07);border-color:rgba(30,58,110,.2);color:#1e3a6e}
+.freq-item.mensal{background:rgba(20,84,46,.07);border-color:rgba(20,84,46,.2);color:var(--green)}
+.freq-item.semestral{background:rgba(146,66,10,.07);border-color:rgba(146,66,10,.2);color:var(--amber)}
+.freq-item.anual{background:rgba(127,22,22,.07);border-color:rgba(127,22,22,.2);color:var(--red)}
+
+/* ════════ HIERARCHY DIAGRAM ════════ */
+.hier-wrap{display:flex;flex-direction:column;gap:0;padding:24px}
+.hier-level{display:flex;align-items:flex-start;gap:16px;margin-bottom:16px}
+.hier-line{
+  width:2px;background:linear-gradient(to bottom, var(--border) 0%, transparent 100%);
+  align-self:stretch;margin-left:23px;
+}
+.hier-node{
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+}
+.hier-box{
+  padding:8px 16px;border-radius:var(--r);
+  font-size:11px;font-weight:600;letter-spacing:.5px;
+  display:flex;align-items:center;gap:6px;
+}
+.hier-box.lvl0{background:var(--navy);color:#fff;font-family:var(--ff-d);font-size:16px;letter-spacing:2px}
+.hier-box.lvl1{background:var(--steel);color:#fff}
+.hier-box.lvl2{background:var(--paper2);color:var(--ink2);border:1px solid var(--border)}
+.hier-box.lvl3{background:rgba(30,79,160,.08);color:var(--navy3);border:1px dashed rgba(30,79,160,.3);font-weight:400;font-size:10px}
+.hier-count{
+  font-family:var(--ff-m);font-size:9px;opacity:.7;
+}
+.hier-arrow{color:var(--ink4);font-size:14px;font-weight:300}
+
+/* ════════ NORMAS SECTION ════════ */
+.norm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.norm-item{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--r);padding:12px 14px;
+  display:flex;flex-direction:column;gap:4px;
+}
+.norm-code{font-family:var(--ff-m);font-size:10px;font-weight:500;color:var(--navy3)}
+.norm-desc{font-size:10px;color:var(--ink3)}
+.norm-count{font-family:var(--ff-m);font-size:11px;font-weight:500;color:var(--navy)}
+
+/* ════════ IMPORT STEPS ════════ */
+.steps-wrap{display:flex;flex-direction:column;gap:0}
+.step{
+  display:flex;gap:20px;position:relative;
+  padding-bottom:24px;
+}
+.step:last-child{padding-bottom:0}
+.step:not(:last-child)::after{
+  content:'';position:absolute;
+  left:19px;top:40px;bottom:0;
+  width:2px;background:linear-gradient(to bottom, var(--border), transparent);
+}
+.step-num{
+  width:40px;height:40px;border-radius:50%;
+  background:var(--navy);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--ff-d);font-size:20px;letter-spacing:1px;
+  flex-shrink:0;box-shadow:0 2px 10px rgba(11,37,64,.3);
+}
+.step-content{flex:1;padding-top:8px}
+.step-title{font-weight:600;font-size:12px;color:var(--navy);margin-bottom:4px;letter-spacing:.5px}
+.step-body{font-size:11px;color:var(--ink3);line-height:1.6}
+.step-tag{
+  display:inline-block;margin-top:6px;
+  font-family:var(--ff-m);font-size:9px;
+  background:var(--paper2);color:var(--ink3);
+  padding:2px 8px;border-radius:4px;
+  border:1px solid var(--border);
+}
+
+/* ════════ ANIMS ════════ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{animation:fadeUp .4s ease forwards}
+.fade-up-1{animation-delay:.05s;opacity:0}
+.fade-up-2{animation-delay:.10s;opacity:0}
+.fade-up-3{animation-delay:.15s;opacity:0}
+.fade-up-4{animation-delay:.20s;opacity:0}
+.fade-up-5{animation-delay:.25s;opacity:0}
+
+/* COUNTER ANIM */
+.count-anim{transition:all .3s}
+
+/* ════════ RESPONSIVE ════════ */
+@media(max-width:1024px){
+  .header{padding:0 24px;gap:16px;flex-wrap:wrap;min-height:auto;padding-top:12px;padding-bottom:12px}
+  .main{padding:20px 24px 40px}
+  .grid2,.grid3,.grid4{grid-template-columns:1fr}
+  .col-span2{grid-column:span 1}
+  .nav-tabs{padding:0 24px;overflow-x:auto}
+  .hkpi{display:none}
+  .hkpi.c1{display:block}
+}
+
+/* ════════ SEARCH ════════ */
+.search-bar{
+  position:relative;margin-bottom:16px;
+}
+.search-input{
+  width:100%;padding:10px 14px 10px 38px;
+  border:1px solid var(--border);border-radius:var(--r);
+  font-family:var(--ff-b);font-size:12px;color:var(--ink);
+  background:var(--white);outline:none;
+  transition:border-color .15s,box-shadow .15s;
+}
+.search-input:focus{border-color:var(--navy3);box-shadow:0 0 0 3px rgba(30,79,160,.1)}
+.search-icon{
+  position:absolute;left:12px;top:50%;transform:translateY(-50%);
+  color:var(--ink4);font-size:14px;pointer-events:none;
+}
+
+/* ════════ TOOLTIP ════════ */
+.tip{position:relative;cursor:help}
+.tip::after{
+  content:attr(data-tip);
+  position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);
+  background:var(--navy);color:#fff;font-size:10px;padding:5px 10px;
+  border-radius:4px;white-space:nowrap;pointer-events:none;
+  opacity:0;transition:opacity .15s;z-index:100;
+}
+.tip:hover::after{opacity:1}
+
+/* ════════ SCROLL BAR ════════ */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:var(--paper2)}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--ink4)}
+</style>
+</head>
+<body>
+
+<!-- ══════════ HEADER ══════════ -->
+<header class="header z1">
+  <div style="display:flex;align-items:center;gap:12px" class="header-brand">
+    <div class="logo-mark">⚓</div>
+    <div>
+      <div class="brand-name">Macaé Navegação</div>
+      <div class="brand-sub">Engenharia de Manutenção</div>
+    </div>
+  </div>
+  <div class="header-doc">
+    <div class="doc-title">PLANO DE MANUTENÇÃO · SIGAMNT</div>
+    <div class="doc-meta">FORM-120 Rev.2 · Estrutura BEM → TAREFA → ETAPA · Protheus 12</div>
+  </div>
+  <div class="header-kpis">
+    <div class="hkpi c1"><div class="hkpi-n">85</div><div class="hkpi-l">Bens</div></div>
+    <div class="hkpi c2"><div class="hkpi-n">93</div><div class="hkpi-l">Tarefas</div></div>
+    <div class="hkpi c3"><div class="hkpi-n">320</div><div class="hkpi-l">Instruções</div></div>
+    <div class="hkpi c4"><div class="hkpi-n">2.084</div><div class="hkpi-l">Vínculos</div></div>
+  </div>
+  <div class="rev-pill">REV.2 · 2025</div>
+</header>
+
+<!-- ══════════ NAV TABS ══════════ -->
+<nav class="nav-tabs z1">
+  <div class="tab active" onclick="showPage('visao')">📊 Visão Geral</div>
+  <div class="tab" onclick="showPage('frota')">🚢 Frota</div>
+  <div class="tab" onclick="showPage('instrucoes')">📋 Instruções</div>
+  <div class="tab" onclick="showPage('frequencias')">⏱ Frequências</div>
+  <div class="tab" onclick="showPage('hierarquia')">🔗 Hierarquia SIGAMNT</div>
+  <div class="tab" onclick="showPage('importacao')">⚙ Importação Protheus</div>
+</nav>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- PAGE 1 — VISÃO GERAL                              -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="page active z1" id="page-visao">
+<div class="main">
+  <div class="section-title fade-up">VISÃO GERAL DO PLANO</div>
+  <div class="section-sub fade-up">Estrutura consolidada de manutenção preventiva para toda a frota Macaé Navegação</div>
+
+  <!-- KPI CARDS -->
+  <div class="grid4" style="margin-bottom:24px">
+    <div class="stat-card s-navy fade-up fade-up-1">
+      <div class="stat-n" id="kpi-bens">85</div>
+      <div class="stat-l">Bens Cadastrados</div>
+      <div class="stat-sub">13 embarcações · componentes vinculados</div>
+    </div>
+    <div class="stat-card s-teal fade-up fade-up-2">
+      <div class="stat-n">93</div>
+      <div class="stat-l">Grupos / Tarefas</div>
+      <div class="stat-sub">Sistemas técnicos codificados TAR-XXX-NNN</div>
+    </div>
+    <div class="stat-card s-wood fade-up fade-up-3">
+      <div class="stat-n">320</div>
+      <div class="stat-l">Instruções (Etapas)</div>
+      <div class="stat-sub">INS001–INS320 · com norma técnica associada</div>
+    </div>
+    <div class="stat-card s-green fade-up fade-up-4">
+      <div class="stat-n">2.084</div>
+      <div class="stat-l">Vínculos Bem→Etapa</div>
+      <div class="stat-sub">Relacionamentos auditáveis e rastreáveis</div>
+    </div>
+  </div>
+
+  <div class="grid2" style="margin-bottom:20px">
+
+    <!-- DISTRIBUIÇÃO POR TIPO -->
+    <div class="card fade-up fade-up-1">
+      <div class="card-head">
+        <div>
+          <div class="card-head-title">Distribuição da Frota por Material</div>
+          <div class="card-head-sub">Aço Naval vs. Madeira — impacto no plano de manutenção</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div style="display:flex;align-items:center;gap:28px">
+          <div class="donut-wrap">
+            <svg width="160" height="160" viewBox="0 0 160 160">
+              <circle cx="80" cy="80" r="60" fill="none" stroke="#E4DDD0" stroke-width="22"/>
+              <!-- Aço Naval: 5/13 = 38.5% → circumference = 2πr = 376.99 → 145.1 -->
+              <circle cx="80" cy="80" r="60" fill="none" stroke="#2D5A90" stroke-width="22"
+                stroke-dasharray="222 377" stroke-dashoffset="0"/>
+              <!-- Madeira: 8/13 = 61.5% → 231.9 -->
+              <circle cx="80" cy="80" r="60" fill="none" stroke="#9A5C2E" stroke-width="22"
+                stroke-dasharray="155 377" stroke-dashoffset="-222"/>
+            </svg>
+            <div class="donut-center">
+              <div class="donut-n">13</div>
+              <div class="donut-l">Frotas</div>
+            </div>
+          </div>
+          <div class="legend">
+            <div class="legend-item">
+              <div class="legend-dot" style="background:#2D5A90"></div>
+              <div>
+                <div class="legend-label">Aço Naval</div>
+                <div style="font-size:10px;color:var(--ink4)">5 embarcações (RSSNA, RSCDO, RSFRD, RSMAC, RSABR)</div>
+              </div>
+              <div class="legend-val">38%</div>
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot" style="background:#9A5C2E"></div>
+              <div>
+                <div class="legend-label">Madeira</div>
+                <div style="font-size:10px;color:var(--ink4)">8 embarcações (RSTRP, RSTPO, SL-II/III/V/13, RSMDC + 1)</div>
+              </div>
+              <div class="legend-val">62%</div>
+            </div>
+            <div style="margin-top:8px;padding-top:8px;border-top:1px solid var(--border)">
+              <div style="font-size:10px;color:var(--ink3)">⚠ Embarcações de madeira demandam <strong>protocolos específicos</strong> de calafetagem, proteção biológica e monitoramento de umidade — não presentes em frotas de aço.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DISTRIBUIÇÃO POR FREQUÊNCIA -->
+    <div class="card fade-up fade-up-2">
+      <div class="card-head">
+        <div>
+          <div class="card-head-title">Distribuição por Frequência de Manutenção</div>
+          <div class="card-head-sub">Instrução total: 320 etapas catalogadas</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="prog-row">
+          <div class="prog-head">
+            <span class="prog-label" style="color:#1e3a6e">● Semanal</span>
+            <span class="prog-val">72 instruções · 22,5%</span>
+          </div>
+          <div class="prog-track"><div class="prog-fill" style="width:22.5%;background:#1e3a6e"></div></div>
+        </div>
+        <div class="prog-row">
+          <div class="prog-head">
+            <span class="prog-label" style="color:var(--green)">● Mensal</span>
+            <span class="prog-val">124 instruções · 38,8%</span>
+          </div>
+          <div class="prog-track"><div class="prog-fill" style="width:38.8%;background:var(--green)"></div></div>
+        </div>
+        <div class="prog-row">
+          <div class="prog-head">
+            <span class="prog-label" style="color:var(--amber)">● Semestral</span>
+            <span class="prog-val">55 instruções · 17,2%</span>
+          </div>
+          <div class="prog-track"><div class="prog-fill" style="width:17.2%;background:var(--amber)"></div></div>
+        </div>
+        <div class="prog-row">
+          <div class="prog-head">
+            <span class="prog-label" style="color:var(--red)">● Anual</span>
+            <span class="prog-val">69 instruções · 21,6%</span>
+          </div>
+          <div class="prog-track"><div class="prog-fill" style="width:21.6%;background:var(--red)"></div></div>
+        </div>
+        <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border)">
+          <div style="font-size:10px;color:var(--ink3)">💡 <strong>38,8%</strong> das inspeções são mensais — maior carga operacional. Recomenda-se distribuir OS entre as semanas do mês para evitar pico de demanda de mão de obra.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid3">
+    <!-- SISTEMAS TÉCNICOS TOP -->
+    <div class="card col-span2 fade-up fade-up-3">
+      <div class="card-head">
+        <div>
+          <div class="card-head-title">Principais Grupos / Sistemas Técnicos</div>
+          <div class="card-head-sub">Por volume de etapas de manutenção</div>
+        </div>
+        <div class="card-badge">Top 12</div>
+      </div>
+      <div class="card-body">
+        <div id="top-groups-chart"></div>
+      </div>
+    </div>
+
+    <!-- NORMAS -->
+    <div class="card fade-up fade-up-4">
+      <div class="card-head">
+        <div>
+          <div class="card-head-title">Normas e Regulações</div>
+          <div class="card-head-sub">Cobertura regulatória do plano</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="norm-grid">
+          <div class="norm-item">
+            <div class="norm-code">SOLAS</div>
+            <div class="norm-desc">Segurança Marítima</div>
+            <div class="norm-count">42 etapas</div>
+          </div>
+          <div class="norm-item">
+            <div class="norm-code">MARPOL</div>
+            <div class="norm-desc">Poluição Marinha</div>
+            <div class="norm-count">18 etapas</div>
+          </div>
+          <div class="norm-item">
+            <div class="norm-code">NORMAM-01</div>
+            <div class="norm-desc">DPC / Navegação</div>
+            <div class="norm-count">24 etapas</div>
+          </div>
+          <div class="norm-item">
+            <div class="norm-code">NR-30</div>
+            <div class="norm-desc">Seg. Trabalho Aquaviário</div>
+            <div class="norm-count">9 etapas</div>
+          </div>
+          <div class="norm-item">
+            <div class="norm-code">ISO 9001</div>
+            <div class="norm-desc">Qualidade / Auditoria</div>
+            <div class="norm-count">11 etapas</div>
+          </div>
+          <div class="norm-item">
+            <div class="norm-code">NR-10 / 11</div>
+            <div class="norm-desc">Elétrica / Carga</div>
+            <div class="norm-count">8 etapas</div>
+          </div>
+          <div class="norm-item">
+            <div class="norm-code">NACE SP0169</div>
+            <div class="norm-desc">Proteção Catódica</div>
+            <div class="norm-count">4 etapas</div>
+          </div>
+          <div class="norm-item">
+            <div class="norm-code">ANVISA</div>
+            <div class="norm-desc">Água Potável RDC72</div>
+            <div class="norm-count">6 etapas</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- PAGE 2 — FROTA                                    -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="page z1" id="page-frota">
+<div class="main">
+  <div class="section-title">CADASTRO DE BENS — FROTA COMPLETA</div>
+  <div class="section-sub">85 bens estruturados em hierarquia de embarcação → componentes para importação no SIGAMNT</div>
+
+  <div class="grid4" style="margin-bottom:24px">
+    <div class="stat-card s-navy">
+      <div class="stat-n">13</div>
+      <div class="stat-l">Embarcações</div>
+      <div class="stat-sub">Bem-pai em cada grupo</div>
+    </div>
+    <div class="stat-card s-teal">
+      <div class="stat-n">72</div>
+      <div class="stat-l">Componentes Filhos</div>
+      <div class="stat-sub">Motores, lemes, reversores, geradores</div>
+    </div>
+    <div class="stat-card s-green">
+      <div class="stat-n">12</div>
+      <div class="stat-l">Bens Confirmados</div>
+      <div class="stat-sub">Já existentes ou a criar no SIGAMNT</div>
+    </div>
+    <div class="stat-card s-red">
+      <div class="stat-n">1</div>
+      <div class="stat-l">Frota Pendente</div>
+      <div class="stat-sub">RS AREIA BRANCA — 11 bens a cadastrar</div>
+    </div>
+  </div>
+
+  <div class="fleet-grid" id="fleet-grid"></div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- PAGE 3 — INSTRUÇÕES                               -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="page z1" id="page-instrucoes">
+<div class="main">
+  <div class="section-title">CATÁLOGO DE INSTRUÇÕES (ETAPAS)</div>
+  <div class="section-sub">320 instruções INS001–INS320 — base para criação das etapas no SIGAMNT</div>
+
+  <div class="card" style="margin-bottom:0">
+    <div class="card-head">
+      <div style="flex:1">
+        <div class="search-bar" style="margin-bottom:0">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="search-input" id="ins-search" placeholder="Buscar instrução, código, grupo, frequência..." oninput="filterInstrucoes()">
+        </div>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-left:12px">
+        <button class="freq" style="cursor:pointer;padding:4px 12px;font-size:9px" onclick="filterByFreq('')" id="f-all">TODOS</button>
+        <button class="freq semanal" style="cursor:pointer;padding:4px 12px;font-size:9px" onclick="filterByFreq('semanal')" id="f-sem">SEMANAL</button>
+        <button class="freq mensal" style="cursor:pointer;padding:4px 12px;font-size:9px" onclick="filterByFreq('mensal')" id="f-men">MENSAL</button>
+        <button class="freq semestral" style="cursor:pointer;padding:4px 12px;font-size:9px" onclick="filterByFreq('semestral')" id="f-ses">SEMESTRAL</button>
+        <button class="freq anual" style="cursor:pointer;padding:4px 12px;font-size:9px" onclick="filterByFreq('anual')" id="f-anu">ANUAL</button>
+        <button class="freq" style="cursor:pointer;padding:4px 12px;font-size:9px;background:rgba(45,90,144,.1);color:var(--steel);border:1px solid rgba(45,90,144,.2)" onclick="filterByMat('aco')" id="f-aco">AÇO</button>
+        <button class="freq" style="cursor:pointer;padding:4px 12px;font-size:9px;background:rgba(107,62,30,.1);color:var(--wood);border:1px solid rgba(107,62,30,.2)" onclick="filterByMat('wood')" id="f-woo">MADEIRA</button>
+      </div>
+      <div class="card-badge" id="ins-count-badge">320 instruções</div>
+    </div>
+    <div class="tbl-wrap" style="max-height:520px;overflow-y:auto">
+      <table>
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Instrução / Etapa</th>
+            <th>Grupo / Sistema</th>
+            <th>Cód. Tarefa</th>
+            <th>Material</th>
+            <th>Frequência</th>
+          </tr>
+        </thead>
+        <tbody id="ins-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- PAGE 4 — FREQUÊNCIAS                              -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="page z1" id="page-frequencias">
+<div class="main">
+  <div class="section-title">CALENDÁRIO DE MANUTENÇÃO POR FREQUÊNCIA</div>
+  <div class="section-sub">Agrupamento das instruções por periodicidade — base para planejamento de OS no SIGAMNT</div>
+
+  <div class="grid4" style="margin-bottom:20px">
+    <div class="stat-card" style="border-left:4px solid #1e3a6e">
+      <div class="stat-n" style="color:#1e3a6e">72</div>
+      <div class="stat-l">Semanais</div>
+      <div class="stat-sub">≈ 10–15 atividades/semana por embarcação</div>
+    </div>
+    <div class="stat-card" style="border-left:4px solid var(--green2)">
+      <div class="stat-n" style="color:var(--green)">124</div>
+      <div class="stat-l">Mensais</div>
+      <div class="stat-sub">Maior carga — distribuir nas 4 semanas</div>
+    </div>
+    <div class="stat-card" style="border-left:4px solid var(--amber2)">
+      <div class="stat-n" style="color:var(--amber)">55</div>
+      <div class="stat-l">Semestrais</div>
+      <div class="stat-sub">Docagem, análise de óleo, estrutural</div>
+    </div>
+    <div class="stat-card" style="border-left:4px solid var(--red2)">
+      <div class="stat-n" style="color:var(--red)">69</div>
+      <div class="stat-l">Anuais</div>
+      <div class="stat-sub">Revisões gerais, certificações, calibrações</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div class="card-head-title">Grupos por Frequência de Execução</div>
+      <div class="card-head-sub">Clique para ver detalhes das instruções em cada periodicidade</div>
+    </div>
+    <div class="card-body" id="freq-blocks"></div>
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- PAGE 5 — HIERARQUIA SIGAMNT                       -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="page z1" id="page-hierarquia">
+<div class="main">
+  <div class="section-title">HIERARQUIA NO SIGAMNT / PROTHEUS</div>
+  <div class="section-sub">Estrutura de relacionamento exigida pelo módulo de manutenção — Grupo → Instrução → Roteiro → OS</div>
+
+  <div class="grid2" style="margin-bottom:20px">
+
+    <div class="card">
+      <div class="card-head">
+        <div class="card-head-title">🔗 Diagrama de Hierarquia</div>
+        <div class="card-head-sub">Fluxo completo de cadastro no Protheus 12</div>
+      </div>
+      <div class="hier-wrap">
+
+        <div class="hier-level">
+          <div class="hier-node">
+            <div class="hier-box lvl0">🚢 BEM (Ativo)<span class="hier-count">85 registros</span></div>
+            <span class="hier-arrow">→</span>
+            <div style="font-size:10px;color:var(--ink3)">Tabela <strong>SM2</strong> no Protheus<br>ID único por componente</div>
+          </div>
+        </div>
+        <div class="hier-line" style="height:20px"></div>
+
+        <div class="hier-level">
+          <div class="hier-node">
+            <div class="hier-box lvl1">📂 GRUPO / TAREFA<span class="hier-count">93 grupos</span></div>
+            <span class="hier-arrow">→</span>
+            <div style="font-size:10px;color:var(--ink3)">Tabela <strong>SM8</strong><br>Código TAR-XXX-NNN</div>
+          </div>
+        </div>
+        <div class="hier-line" style="height:20px"></div>
+
+        <div class="hier-level">
+          <div class="hier-node">
+            <div class="hier-box lvl1" style="background:var(--teal)">📋 INSTRUÇÃO / ETAPA<span class="hier-count">320 etapas</span></div>
+            <span class="hier-arrow">→</span>
+            <div style="font-size:10px;color:var(--ink3)">Tabela <strong>SM7</strong><br>Código INS001–INS320</div>
+          </div>
+        </div>
+        <div class="hier-line" style="height:20px"></div>
+
+        <div class="hier-level">
+          <div class="hier-node">
+            <div class="hier-box lvl1" style="background:var(--green)">🗂 ROTEIRO<span class="hier-count">1+ por frota</span></div>
+            <span class="hier-arrow">→</span>
+            <div style="font-size:10px;color:var(--ink3)">Tabela <strong>SM5</strong><br>ROT-[ID_BEM]-PREV</div>
+          </div>
+        </div>
+        <div class="hier-line" style="height:20px"></div>
+
+        <div class="hier-level">
+          <div class="hier-node">
+            <div class="hier-box lvl1" style="background:var(--amber)">📝 ORDEM DE SERVIÇO<span class="hier-count">gerada auto</span></div>
+            <span class="hier-arrow">→</span>
+            <div style="font-size:10px;color:var(--ink3)">Tabela <strong>SM0/SM1</strong><br>Disparo por data ou horímetro</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:16px">
+
+      <div class="card">
+        <div class="card-head"><div class="card-head-title">🗺 Regra de Agrupamento de Bens</div></div>
+        <div class="card-body">
+          <div style="font-size:12px;color:var(--ink2);line-height:1.7;margin-bottom:12px">
+            O ID do bem segue uma lógica de ciclo: sempre que o sufixo termina em <strong style="color:var(--navy3)">01</strong>, inicia-se um novo ativo (bem-pai). Os IDs subsequentes são componentes filhos.
+          </div>
+          <div style="background:var(--paper);border-radius:var(--r);padding:14px;font-family:var(--ff-m);font-size:11px;border:1px solid var(--border)">
+            <div style="color:var(--navy3);font-weight:500">RSSNA<strong>01</strong> → Bem-pai (embarcação)</div>
+            <div style="color:var(--ink3);padding-left:20px;margin-top:4px">RSSNA02 → Motor Propulsão 1</div>
+            <div style="color:var(--ink3);padding-left:20px">RSSNA03 → Motor Propulsão 2</div>
+            <div style="color:var(--ink3);padding-left:20px">RSSNA04 → Motor Auxiliar 1</div>
+            <div style="color:var(--ink3);padding-left:20px">…</div>
+            <div style="color:var(--navy3);font-weight:500;margin-top:8px">RSCDO<strong>01</strong> → Novo bem-pai</div>
+            <div style="color:var(--ink3);padding-left:20px">RSCDO02 → Motor Propulsão 1</div>
+            <div style="color:var(--ink3);padding-left:20px">…</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-head-title">⚡ Coerência Técnica da Associação</div></div>
+        <div class="card-body">
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;align-items:center;gap:10px;padding:8px;background:var(--paper);border-radius:4px;border:1px solid var(--border)">
+              <div style="font-size:16px">🔧</div>
+              <div>
+                <div style="font-size:11px;font-weight:600;color:var(--navy2)">Motores → Instruções de Motor</div>
+                <div style="font-size:10px;color:var(--ink4)">MCP, MCA, Tri-Motor: INS021–032, INS078–088, INS122–127…</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:8px;background:var(--paper);border-radius:4px;border:1px solid var(--border)">
+              <div style="font-size:16px">🧭</div>
+              <div>
+                <div style="font-size:11px;font-weight:600;color:var(--navy2)">Leme → Instruções de Governo</div>
+                <div style="font-size:10px;color:var(--ink4)">Leme BB/BE: INS012–015, INS042–045, INS172–175…</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:8px;background:var(--paper);border-radius:4px;border:1px solid var(--border)">
+              <div style="font-size:16px">🚢</div>
+              <div>
+                <div style="font-size:11px;font-weight:600;color:var(--navy2)">Embarcação → Geral + Estrutural + Segurança</div>
+                <div style="font-size:10px;color:var(--ink4)">Convés, casco, SOLAS, MARPOL, certificações…</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:8px;background:rgba(107,62,30,.08);border-radius:4px;border:1px solid rgba(107,62,30,.2)">
+              <div style="font-size:16px">🪵</div>
+              <div>
+                <div style="font-size:11px;font-weight:600;color:var(--wood)">Madeira → Protocolos Exclusivos</div>
+                <div style="font-size:10px;color:var(--ink4)">Calafetagem, umidade, proteção biológica, docagem em terra…</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- PAGE 6 — IMPORTAÇÃO PROTHEUS                      -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="page z1" id="page-importacao">
+<div class="main">
+  <div class="section-title">ROTEIRO DE IMPORTAÇÃO · SIGAMNT</div>
+  <div class="section-sub">5 etapas sequenciais para configurar o plano completo no Protheus 12 — a ordem é obrigatória</div>
+
+  <div class="grid2">
+
+    <div class="card">
+      <div class="card-head">
+        <div class="card-head-title">📌 Sequência de Configuração</div>
+        <div class="card-head-sub">Cada etapa depende da anterior — não pular</div>
+      </div>
+      <div class="card-body">
+        <div class="steps-wrap">
+
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <div class="step-title">Cadastrar Grupos / Tarefas</div>
+              <div class="step-body">Criar os 93 grupos na tabela <strong>SM8</strong> usando o código TAR-XXX-NNN. O grupo deve existir ANTES de qualquer instrução ser importada. Registros de instrução sem grupo válido são silenciosamente rejeitados.</div>
+              <span class="step-tag">Aba: GRUPOS_TAREFAS</span>
+              <span class="step-tag">Tabela: SM8</span>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <div class="step-title">Cadastrar Instruções / Etapas</div>
+              <div class="step-body">Importar as 320 instruções (INS001–INS320) na tabela <strong>SM7</strong>, vinculando cada uma ao grupo correspondente. Configurar frequência em dias: Semanal=7, Mensal=30, Semestral=180, Anual=365.</div>
+              <span class="step-tag">Aba: INSTRUCOES_MASTER</span>
+              <span class="step-tag">Tabela: SM7</span>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <div class="step-title">Cadastrar Bens (Ativos)</div>
+              <div class="step-body">Criar os 85 bens na tabela <strong>SM2</strong> respeitando a hierarquia: ID terminado em "01" = bem-pai. Bens filhos devem referenciar o pai. A frota RS AREIA BRANCA (11 bens) ainda não está no sistema.</div>
+              <span class="step-tag">Aba: BENS_CADASTRO</span>
+              <span class="step-tag">Tabela: SM2 / SIGAATF</span>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <div class="step-title">Montar Roteiros de Manutenção</div>
+              <div class="step-body">Criar 1 roteiro por embarcação na tabela <strong>SM5</strong>, vinculando Bem + Grupos + Instruções. Nomenclatura: ROT-[ID_BEM]-PREV. Componentes críticos (motor, leme) podem ter roteiros próprios.</div>
+              <span class="step-tag">Nomenclatura: ROT-RSSNA01-PREV</span>
+              <span class="step-tag">Tabela: SM5</span>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <div class="step-title">Configurar Geração de OS</div>
+              <div class="step-body">Para motores: gatilho por horímetro (MCP=400h, MCA=500h, GER=250h). Para demais sistemas: gatilho por data/calendário. Configurar perfis distintos: executor faz apontamento; supervisor fecha e aprova.</div>
+              <span class="step-tag">Horímetro nos bens de motor</span>
+              <span class="step-tag">Tabela: SM0/SM1</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:16px">
+
+      <div class="card">
+        <div class="card-head"><div class="card-head-title">⚠ Alertas Críticos de Implantação</div></div>
+        <div class="card-body">
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="padding:12px;background:rgba(127,22,22,.06);border-radius:4px;border-left:3px solid var(--red2)">
+              <div style="font-size:11px;font-weight:600;color:var(--red);margin-bottom:3px">🚫 Rejeição Silenciosa de Registros</div>
+              <div style="font-size:10px;color:var(--ink3)">Instruções importadas sem grupo válido na SM8 <strong>não geram erro</strong> — são simplesmente ignoradas. Sempre validar grupos antes de importar etapas.</div>
+            </div>
+            <div style="padding:12px;background:rgba(127,22,22,.06);border-radius:4px;border-left:3px solid var(--red2)">
+              <div style="font-size:11px;font-weight:600;color:var(--red);margin-bottom:3px">🚫 OS Vazia por Roteiro sem Instrução</div>
+              <div style="font-size:10px;color:var(--ink3)">Roteiros sem instruções vinculadas geram OS que não travam o fluxo mas <strong>corrompem o histórico</strong> de execução e invalidam auditoria ISO 9001.</div>
+            </div>
+            <div style="padding:12px;background:rgba(127,22,22,.06);border-radius:4px;border-left:3px solid var(--amber2)">
+              <div style="font-size:11px;font-weight:600;color:var(--amber);margin-bottom:3px">⚠ Perfil Executor = Supervisor</div>
+              <div style="font-size:10px;color:var(--ink3)">O erro mais comum: usar o mesmo perfil para quem executa e quem aprova. O executor passa a fechar OS sem aprovação, eliminando o controle de qualidade.</div>
+            </div>
+            <div style="padding:12px;background:rgba(127,22,22,.06);border-radius:4px;border-left:3px solid var(--amber2)">
+              <div style="font-size:11px;font-weight:600;color:var(--amber);margin-bottom:3px">⚠ Patches do Protheus</div>
+              <div style="font-size:10px;color:var(--ink3)">Atualizações de release podem redefinir parâmetros SX3 e periodicidades. Exportar roteiros e planos ANTES de qualquer LP/patch e validar em ambiente de homologação.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-head-title">📊 Status de Cadastro por Frota</div></div>
+        <div class="card-body">
+          <table>
+            <thead>
+              <tr><th>Frota</th><th>Material</th><th>Bens</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="td-bold">RS SANA</td><td class="td-mat-aco">Aço Naval</td><td class="td-code">9 bens</td><td><span class="fleet-badge ok">✓ OK</span></td></tr>
+              <tr><td class="td-bold">RS CÓRREGO DO OURO</td><td class="td-mat-aco">Aço Naval</td><td class="td-code">10 bens</td><td><span class="fleet-badge ok">✓ OK</span></td></tr>
+              <tr><td class="td-bold">RS FRADE</td><td class="td-mat-aco">Aço Naval</td><td class="td-code">9 bens</td><td><span class="fleet-badge ok">✓ OK</span></td></tr>
+              <tr><td class="td-bold">RS MACAÉ</td><td class="td-mat-aco">Aço Naval</td><td class="td-code">9 bens</td><td><span class="fleet-badge ok">✓ OK</span></td></tr>
+              <tr><td class="td-bold">RS AREIA BRANCA</td><td class="td-mat-aco">Aço Naval</td><td class="td-code">11 bens</td><td><span class="fleet-badge pend">⚠ Pendente</span></td></tr>
+              <tr><td class="td-bold">RS TRAPICHE</td><td class="td-mat-mad">Madeira</td><td class="td-code">9 bens</td><td><span class="fleet-badge ok">✓ OK</span></td></tr>
+              <tr><td class="td-bold">RS TRAPOLEO</td><td class="td-mat-mad">Madeira</td><td class="td-code">9 bens</td><td><span class="fleet-badge ok">✓ OK</span></td></tr>
+              <tr><td class="td-bold">SEM LIMITES II</td><td class="td-mat-mad">Madeira</td><td class="td-code">4 bens</td><td><span class="fleet-badge ok">✓ OK</span></td></tr>
+              <tr><td class="td-bold">SEM LIMITES III/V/2013</td><td class="td-mat-mad">Madeira</td><td class="td-code">15 bens</td><td><span class="fleet-badge ok">✓ OK</span></td></tr>
+              <tr><td class="td-bold">RS MARIA DO CARMO</td><td class="td-mat-mad">Madeira</td><td class="td-code">4 bens</td><td><span class="fleet-badge ok">✓ OK</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════ SCRIPTS ══════════ -->
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────
+const instrucoes = [
+{cod:'INS001',desc:'Limpeza do filtro da unidade interna de ar-condicionado',grupo:'Ar Condicionado',tar:'TAR-CLI-001',mat:'aco',freq:'semanal'},
+{cod:'INS002',desc:'Verificar funcionamento da coluna de governo e resposta ao comando',grupo:'Coluna de Governo',tar:'TAR-LEM-002',mat:'aco',freq:'semanal'},
+{cod:'INS003',desc:'Lubrificar gato de reboque (grampo, pino e articulações)',grupo:'Gato de Reboque',tar:'TAR-REB-003',mat:'aco',freq:'semanal'},
+{cod:'INS004',desc:'Movimentar gato de reboque em toda a sua faixa de operação',grupo:'Gato de Reboque',tar:'TAR-REB-003',mat:'aco',freq:'semanal'},
+{cod:'INS005',desc:'Verificar funcionamento geral do guincho principal (subida, descida, freio)',grupo:'Guincho Principal',tar:'TAR-GUI-004',mat:'aco',freq:'semanal'},
+{cod:'INS006',desc:'Verificar vazamentos hidráulicos e ruídos anormais no guincho principal',grupo:'Guincho Principal',tar:'TAR-GUI-004',mat:'aco',freq:'semanal'},
+{cod:'INS007',desc:'Lubrificar partes móveis de todos os guinchos (rolamentos, eixos, guias)',grupo:'Guinchos (Todos)',tar:'TAR-GUI-005',mat:'aco',freq:'semanal'},
+{cod:'INS008',desc:'Testar acionamento elétrico/hidráulico de todos os guinchos',grupo:'Guinchos (Todos)',tar:'TAR-GUI-005',mat:'aco',freq:'semanal'},
+{cod:'INS012',desc:'Verificar funcionamento do leme Bombordo — ciclo completo de 0° a 35°',grupo:'Leme Bombordo',tar:'TAR-LEM-007',mat:'aco',freq:'semanal'},
+{cod:'INS013',desc:'Verificar vazamentos hidráulicos no cilindro e mangueiras de leme BB',grupo:'Leme Bombordo',tar:'TAR-LEM-007',mat:'aco',freq:'semanal'},
+{cod:'INS014',desc:'Verificar funcionamento do leme Boreste — ciclo completo de 0° a 35°',grupo:'Leme Boreste',tar:'TAR-LEM-008',mat:'aco',freq:'semanal'},
+{cod:'INS015',desc:'Verificar vazamentos hidráulicos no cilindro e mangueiras de leme BE',grupo:'Leme Boreste',tar:'TAR-LEM-008',mat:'aco',freq:'semanal'},
+{cod:'INS021',desc:'Drenar filtro Racor do combustível do MCA — verificar presença de água',grupo:'MCA – Motor Auxiliar',tar:'TAR-MOT-010',mat:'aco',freq:'semanal'},
+{cod:'INS022',desc:'Drenar água do tanque de combustível de avaria do MCA',grupo:'MCA – Motor Auxiliar',tar:'TAR-MOT-010',mat:'aco',freq:'semanal'},
+{cod:'INS023',desc:'Verificar nível do óleo lubrificante do MCA',grupo:'MCA – Motor Auxiliar',tar:'TAR-MOT-010',mat:'aco',freq:'semanal'},
+{cod:'INS028',desc:'Drenar água do filtro Racor do MCP — verificar presença de micro-organismos',grupo:'MCP – Motor Propulsão Aux.',tar:'TAR-MOT-011',mat:'aco',freq:'semanal'},
+{cod:'INS029',desc:'Drenar água do tanque de combustível do MCP',grupo:'MCP – Motor Propulsão Aux.',tar:'TAR-MOT-011',mat:'aco',freq:'semanal'},
+{cod:'INS030',desc:'Verificar bomba de água salgada do MCP — fluxo e temperatura de saída',grupo:'MCP – Motor Propulsão Aux.',tar:'TAR-MOT-011',mat:'aco',freq:'semanal'},
+{cod:'INS033',desc:'Manutenção do ventilador externo da unidade condensadora de A/C',grupo:'Ar Condicionado',tar:'TAR-CLI-001',mat:'aco',freq:'mensal'},
+{cod:'INS034',desc:'Reportar irregularidades da coluna de governo à engenharia',grupo:'Coluna de Governo',tar:'TAR-LEM-002',mat:'aco',freq:'mensal'},
+{cod:'INS042',desc:'Verificar ruídos anormais no sistema de governo BB (bomba, cilindro)',grupo:'Leme Bombordo',tar:'TAR-LEM-007',mat:'aco',freq:'mensal'},
+{cod:'INS043',desc:'Testar resposta do leme BB ao comando do timão e ao autopiloto',grupo:'Leme Bombordo',tar:'TAR-LEM-007',mat:'aco',freq:'mensal'},
+{cod:'INS058',desc:'Testar funcionamento da bomba de incêndio em carga (pressão ≥ 3,5 bar)',grupo:'Bomba de Incêndio',tar:'TAR-INC-015',mat:'aco',freq:'mensal'},
+{cod:'INS078',desc:'Trocar óleo lubrificante do MCP — volume e especificação conforme manual',grupo:'MCP – Motor Propulsão Aux.',tar:'TAR-MOT-011',mat:'aco',freq:'mensal'},
+{cod:'INS079',desc:'Trocar filtros de óleo lubrificante do MCP',grupo:'MCP – Motor Propulsão Aux.',tar:'TAR-MOT-011',mat:'aco',freq:'mensal'},
+{cod:'INS095',desc:'Verificar data de validade dos coletes salva-vidas e luminescência',grupo:'Coletes Salva-vidas',tar:'TAR-SEG-020',mat:'aco',freq:'mensal'},
+{cod:'INS107',desc:'Verificar lacre e pino de segurança dos extintores de incêndio',grupo:'Extintores',tar:'TAR-INC-018',mat:'aco',freq:'mensal'},
+{cod:'INS108',desc:'Verificar validade e pressão dos extintores (manômetro na zona verde)',grupo:'Extintores',tar:'TAR-INC-018',mat:'aco',freq:'mensal'},
+{cod:'INS121',desc:'Abrir o hidrofor para limpeza interna — remover incrustações',grupo:'Hidrofor',tar:'TAR-AGU-025',mat:'aco',freq:'semestral'},
+{cod:'INS122',desc:'Trocar óleo lubrificante do MCA (gatilho: 500h ou 6 meses)',grupo:'MCA – Motor Auxiliar',tar:'TAR-MOT-010',mat:'aco',freq:'semestral'},
+{cod:'INS123',desc:'Trocar filtros de óleo e combustível do MCA',grupo:'MCA – Motor Auxiliar',tar:'TAR-MOT-010',mat:'aco',freq:'semestral'},
+{cod:'INS155',desc:'Medir espessura de chapas do casco por ultrassom em pontos mapeados',grupo:'Pintura e Proteção',tar:'TAR-PIN-030',mat:'aco',freq:'semestral'},
+{cod:'INS157',desc:'Verificar ânodos de sacrifício: medir desgaste — substituir se >50%',grupo:'Proteção Catódica',tar:'TAR-CAT-031',mat:'aco',freq:'semestral'},
+{cod:'INS158',desc:'Inspecionar mangueiras de incêndio e esguichos — testar com pressão de trabalho',grupo:'Combate a Incêndio',tar:'TAR-INC-017',mat:'aco',freq:'semestral'},
+{cod:'INS128',desc:'Manutenção completa do compressor de A/C: limpeza, carga de gás',grupo:'Ar Condicionado',tar:'TAR-CLI-001',mat:'aco',freq:'anual'},
+{cod:'INS134',desc:'Trocar óleo do governor do MCP',grupo:'MCP – Motor Propulsão Aux.',tar:'TAR-MOT-011',mat:'aco',freq:'anual'},
+{cod:'INS142',desc:'Verificar validade, bateria e registro do EPIRB na ANATEL/COSPAS-SARSAT',grupo:'EPIRB',tar:'TAR-SEG-022',mat:'aco',freq:'anual'},
+{cod:'INS161',desc:'Inspeção completa de pintura do casco e superestrutura',grupo:'Pintura e Proteção',tar:'TAR-PIN-030',mat:'aco',freq:'anual'},
+{cod:'INS165',desc:'Calibrar instrumentos de medição (manômetros e termômetros) em lab. credenciado',grupo:'Instrumentação',tar:'TAR-NAV-045',mat:'aco',freq:'anual'},
+{cod:'INS166',desc:'Inspeção visual completa do casco externo — fendas, rachaduras, apodrecimento',grupo:'Casco e Estrutura de Madeira',tar:'TAR-CAS-050',mat:'wood',freq:'semanal'},
+{cod:'INS167',desc:'Drenar e medir volume da sentina/porão — registrar litros e comparar',grupo:'Casco e Estrutura de Madeira',tar:'TAR-CAS-050',mat:'wood',freq:'semanal'},
+{cod:'INS168',desc:'Testar bomba de porão automática e manual — verificar acionamento',grupo:'Casco e Estrutura de Madeira',tar:'TAR-CAS-050',mat:'wood',freq:'semanal'},
+{cod:'INS169',desc:'Verificar nível de óleo, água de arrefecimento e presença de emulsão no MCP',grupo:'Motor Principal (MCP)',tar:'TAR-MOT-055',mat:'wood',freq:'semanal'},
+{cod:'INS190',desc:'Verificar calafetagem das juntas de tábuas do casco',grupo:'Casco e Estrutura de Madeira',tar:'TAR-CAS-050',mat:'wood',freq:'semanal'},
+{cod:'INS191',desc:'Monitorar vibração anormal transmitida ao casco pelo sistema de propulsão',grupo:'Motor Principal (MCP)',tar:'TAR-MOT-055',mat:'wood',freq:'semanal'},
+{cod:'INS193',desc:'Inspecionar visualmente sinais de ataque biológico (broca naval, teredo)',grupo:'Proteção Biológica',tar:'TAR-BIO-060',mat:'wood',freq:'semanal'},
+{cod:'INS194',desc:'Inspeção por percussão em tábuas do casco para detecção de madeira oca',grupo:'Casco e Estrutura de Madeira',tar:'TAR-CAS-050',mat:'wood',freq:'mensal'},
+{cod:'INS195',desc:'Medir teor de umidade da madeira em pontos estruturais internos — meta ≤ 18%',grupo:'Monitoramento de Umidade',tar:'TAR-MAD-061',mat:'wood',freq:'mensal'},
+{cod:'INS197',desc:'Aplicar produto preservativo de madeira (éster de bórax)',grupo:'Conservação da Madeira',tar:'TAR-MAD-062',mat:'wood',freq:'mensal'},
+{cod:'INS201',desc:'Trocar óleo e filtros do MCP — intervalo: 400h ou 30 dias',grupo:'Motor Principal (MCP)',tar:'TAR-MOT-055',mat:'wood',freq:'mensal'},
+{cod:'INS208',desc:'Retirar embarcação da água para inspeção completa do fundo (carenar)',grupo:'Docagem e Fundo',tar:'TAR-CAS-065',mat:'wood',freq:'semestral'},
+{cod:'INS211',desc:'Verificar e substituir ânodos de zinco — substituir quando consumidos > 40%',grupo:'Proteção Catódica',tar:'TAR-CAT-066',mat:'wood',freq:'semestral'},
+{cod:'INS215',desc:'Inspecionar sistema de governo completo: mancais de leme BB e BE',grupo:'Governo e Manobra',tar:'TAR-LEM-067',mat:'wood',freq:'semestral'},
+{cod:'INS221',desc:'Inspeção estrutural completa com sondagem de apodrecimento por sonda metálica',grupo:'Inspeção Geral e Documentação',tar:'TAR-CAS-070',mat:'wood',freq:'anual'},
+{cod:'INS223',desc:'Revisão geral do MCP conforme manual do fabricante — calibrar injetores',grupo:'Motor Principal (MCP)',tar:'TAR-MOT-055',mat:'wood',freq:'anual'},
+{cod:'INS225',desc:'Verificar validade de todos os equipamentos de segurança e salvamento',grupo:'Segurança e Salvamento',tar:'TAR-SEG-071',mat:'wood',freq:'anual'},
+{cod:'INS233',desc:'Realizar vistoria periódica do casco em doca seca conforme NORMAM-01/DPC',grupo:'Inspeção Geral e Documentação',tar:'TAR-CAS-070',mat:'wood',freq:'anual'},
+{cod:'INS256',desc:'Verificar partida, tensão de saída e frequência de cada um dos três geradores',grupo:'Tri-Gerador (3×120kVA)',tar:'TAR-GER-080',mat:'aco',freq:'semanal'},
+{cod:'INS264',desc:'Testar partida automática do GER-EMERG por simulação de falha de rede',grupo:'GER Emergência (40kVA)',tar:'TAR-GER-082',mat:'aco',freq:'semanal'},
+{cod:'INS268',desc:'Testar funcionamento do molinete 7t em ciclo completo',grupo:'Molinete 7t',tar:'TAR-GUI-085',mat:'aco',freq:'semanal'},
+{cod:'INS274',desc:'Verificar link Starlink: alinhamento da antena, status de conexão e firmware',grupo:'Starlink / Comunicações',tar:'TAR-NAV-088',mat:'aco',freq:'semanal'},
+{cod:'INS283',desc:'Verificar volume de infiltração pela gaxeta de popa — gotejamento aceitável: 1 gota/min',grupo:'Gaxeta e Vedação de Eixo',tar:'TAR-GAX-090',mat:'aco',freq:'semanal'},
+{cod:'INS294',desc:'Verificar pressão dos cilindros do sistema fixo de CO₂ da praça de máquinas',grupo:'Supressão de Incêndio (PM)',tar:'TAR-INC-091',mat:'aco',freq:'semanal'},
+{cod:'INS301',desc:'Verificar nível e qualidade visual da água potável nos tanques',grupo:'Água Potável',tar:'TAR-AGU-092',mat:'aco',freq:'semanal'},
+{cod:'INS302',desc:'Medir cloro residual livre na água potável — faixa: 0,2–0,5 mg/L',grupo:'Água Potável',tar:'TAR-AGU-092',mat:'aco',freq:'semanal'},
+{cod:'INS305',desc:'Verificar sistema de retenção de esgoto sanitário (holding tank)',grupo:'Esgoto Sanitário (MARPOL IV)',tar:'TAR-ESG-093',mat:'aco',freq:'semanal'},
+{cod:'INS309',desc:'Inspecionar painel elétrico principal de aço com termômetro IR',grupo:'Painel Elétrico Principal',tar:'TAR-ELE-094',mat:'aco',freq:'semanal'},
+{cod:'INS313',desc:'Verificar âncoras BB e BE: condição das patas e articulação do arganéu',grupo:'Âncora e Fundeio',tar:'TAR-ANC-095',mat:'aco',freq:'semanal'},
+{cod:'INS318',desc:'Operar sistema de polimento de combustível (fuel polisher)',grupo:'Combustível – Qualidade',tar:'TAR-CMB-096',mat:'aco',freq:'mensal'},
+{cod:'INS320',desc:'Coletar amostra de combustível para análise laboratorial (ASTM D975)',grupo:'Combustível – Qualidade',tar:'TAR-CMB-096',mat:'aco',freq:'semestral'},
+];
+
+// full freq distribution data
+const freqGroups = {
+  semanal:[
+    'Ar Condicionado','Coluna de Governo','Gato de Reboque','Guincho Principal','Guinchos (Todos)',
+    'Portas Externas / Saídas Emergência','Leme Bombordo','Leme Boreste','Bomba Água Potável',
+    'Baterias','Compressor de Ar','MCA – Motor Auxiliar','MCP – Motor Propulsão Aux.',
+    'Pintura e Proteção','Starlink / Comunicações','Casco e Estrutura de Madeira',
+    'Motor Principal (MCP)','Motor Auxiliar (MCA)','Segurança e Salvamento',
+    'Proteção Biológica','Gerador a Bordo (GER)','Tri-Motor (2×220+1×400HP)',
+    'Gestão de Autonomia','Tri-Gerador (3×120kVA)','GER Emergência (40kVA)',
+    'Molinete 7t','Academia a Bordo','Bi-Motor Principal (BB/BE)','Calado e Estabilidade',
+    'Convés Grande Área','Gaxeta e Vedação de Eixo','Carga e Convés de Trabalho',
+    'Supressão de Incêndio (PM)','Motobomba de Emergência','Água Potável',
+    'Esgoto Sanitário (MARPOL IV)','Painel Elétrico Geral','Painel Elétrico Principal',
+    'Âncora e Fundeio'
+  ],
+  mensal:[
+    'Ar Condicionado','Coluna de Governo','Gato de Reboque','Guincho Principal','Guinchos (Todos)',
+    'Equipamento de Peação','Leme Bombordo','Leme Boreste','Válvulas de Convés',
+    'Válvulas Água Potável / Lastro / Resfriamento','Mangotes Hidráulicos','Hidrofor',
+    'Bomba de Incêndio','Tomadas de Incêndio','Separador Água/Óleo','Baterias',
+    'Compressor de Ar','Holofotes e Luminárias','MCP – Motor Propulsão Aux.',
+    'Equipamentos de Navegação','Limpador de Para-brisa','Coletes Salva-vidas',
+    'Boias Salva-vidas','Bote','Extintores','Kit SOPEP','Geladeiras e Freezers',
+    'Máquina de Lavar','Armários de Utensílios','Coletores de Lixo',
+    'Pintura e Proteção','Equipamentos de Amarração e Fundeio','Estruturas e Acessórios',
+    'Portas Estanques','Sistemas de Porão (Sentina)','Segurança do Trabalho (NR-30)',
+    'Equipamentos de Comunicação (GMDSS)','Conservação da Madeira',
+    'Casco e Estrutura de Madeira','Monitoramento de Umidade','Governo e Manobra',
+    'Motor Principal (MCP)','Motor Auxiliar (MCA)','Sistema Elétrico','Porão e Ventilação',
+    'Proteção Biológica','Gerador a Bordo (GER)','Tri-Motor (2×220+1×400HP)',
+    'Tri-Gerador (3×120kVA)','GER Emergência (40kVA)','Molinete 7t',
+    'Bi-Motor Principal (BB/BE)','Convés Grande Área','Gaxeta e Vedação de Eixo',
+    'Carga e Convés de Trabalho','Supressão de Incêndio (PM)','Água Potável',
+    'Esgoto Sanitário (MARPOL IV)','Âncora e Fundeio','Combustível – Qualidade',
+    'Painel Elétrico Principal'
+  ],
+  semestral:[
+    'Hidrofor','MCA – Motor Auxiliar','Pintura e Proteção','Proteção Catódica',
+    'Combate a Incêndio','Estanqueidade','Leme Bombordo','Leme Boreste',
+    'Separador Água/Óleo','MCP – Motor Propulsão Aux.','Docagem e Fundo',
+    'Estrutura Interna','Proteção Catódica','Governo e Manobra','Motor Principal (MCP)',
+    'Motor Auxiliar (MCA)','Proteção Biológica','Gerador a Bordo (GER)',
+    'Estrutura – Casco Longo','Tri-Gerador (3×120kVA)','Âncora e Fundeio',
+    'Gaxeta e Vedação de Eixo','Combustível – Qualidade'
+  ],
+  anual:[
+    'Ar Condicionado','Mangotes Hidráulicos','Bomba Água Potável',
+    'MCP – Motor Propulsão Aux.','Boias Infláveis / Balsa','EPIRB','Transponder (SART/AIS)',
+    'Artefatos Pirotécnicos','Pintura e Proteção','Movimentação de Carga',
+    'Estruturas de Salvatagem','Tanques de Combustível','Instrumentação',
+    'Gestão e Rastreabilidade (TOTVS)','Inspeção Geral e Documentação',
+    'Motor Principal (MCP)','Motor Auxiliar (MCA)','Sistema Elétrico',
+    'Equipamentos de Navegação','Segurança e Salvamento','Gerador a Bordo (GER)',
+    'Gestão de Vida Útil da Frota','Tri-Gerador (3×120kVA)','Molinete 7t',
+    'Carga e Convés de Trabalho','Supressão de Incêndio (PM)','Painel Elétrico Principal',
+    'Gestão de Vida Útil – Aço'
+  ]
+};
+
+const frota = [
+  {id:'RSSNA01',nome:'RS SANA',mat:'aco',comps:['Motor Propulsão ×2','Motor Auxiliar ×3','Sistema de Reversão ×2','Leme']},
+  {id:'RSCDO01',nome:'RS CÓRREGO DO OURO',mat:'aco',comps:['Motor Propulsão ×2','Motor Auxiliar ×3','Sistema de Reversão ×2','Leme','Bow Thruster']},
+  {id:'RSFRD01',nome:'RS FRADE',mat:'aco',comps:['Motor Propulsão ×2','Motor Auxiliar ×3','Sistema de Reversão ×2','Leme']},
+  {id:'RSMAC01',nome:'RS MACAÉ',mat:'aco',comps:['Motor Propulsão ×2','Motor Auxiliar ×3','Sistema de Reversão ×2','Leme']},
+  {id:'RSABR01',nome:'RS AREIA BRANCA',mat:'aco',comps:['Motor Propulsão ×3','Motor Auxiliar ×3','Sistema de Reversão ×3','Leme'],pend:true},
+  {id:'RSTRP01',nome:'RS TRAPICHE',mat:'wood',comps:['Motor Propulsão ×3','Motor Auxiliar ×1','Sistema de Reversão ×3','Leme']},
+  {id:'RSTPO01',nome:'RS TRAPOLEO',mat:'wood',comps:['Motor Propulsão ×3','Motor Auxiliar ×1','Sistema de Reversão ×3','Leme']},
+  {id:'SLII001',nome:'SEM LIMITES II',mat:'wood',comps:['Motor Propulsão ×1','Sistema de Reversão ×1','Leme']},
+  {id:'SLIII01',nome:'SEM LIMITES III',mat:'wood',comps:['Motor Propulsão ×1','Motor Auxiliar ×1','Sistema de Reversão ×1','Leme']},
+  {id:'SLV0001',nome:'SEM LIMITES V',mat:'wood',comps:['Motor Propulsão ×1','Motor Auxiliar ×1','Sistema de Reversão ×1','Leme']},
+  {id:'SL13001',nome:'SEM LIMITES 2013',mat:'wood',comps:['Motor Propulsão ×1','Motor Auxiliar ×1','Sistema de Reversão ×1','Leme']},
+  {id:'RSMDC01',nome:'RS MARIA DO CARMO',mat:'wood',comps:['Motor Propulsão ×1','Sistema de Reversão ×1','Leme']},
+];
+
+const topGroups = [
+  {nome:'MCP – Motor Propulsão Aux.',count:22,mat:'aco'},
+  {nome:'MCA – Motor Auxiliar',count:14,mat:'aco'},
+  {nome:'Casco e Estrutura de Madeira',count:8,mat:'wood'},
+  {nome:'Pintura e Proteção',count:8,mat:'aco'},
+  {nome:'Leme Bombordo',count:6,mat:'aco'},
+  {nome:'Leme Boreste',count:6,mat:'aco'},
+  {nome:'Baterias / Sistema Elétrico',count:7,mat:'both'},
+  {nome:'Coletes / Boias Salva-vidas',count:9,mat:'both'},
+  {nome:'Bomba Incêndio / Combate',count:5,mat:'aco'},
+  {nome:'Tri-Gerador (3×120kVA)',count:8,mat:'aco'},
+  {nome:'Motor Principal (MCP) – MAD',count:9,mat:'wood'},
+  {nome:'Segurança e Salvamento',count:10,mat:'wood'},
+];
+
+// ── RENDER TOP GROUPS ─────────────────────────────────────────────────────
+function renderTopGroups(){
+  const max = Math.max(...topGroups.map(g=>g.count));
+  const colors = {aco:'#2D5A90',wood:'#9A5C2E',both:'#148080'};
+  const html = topGroups.map(g=>`
+    <div class="prog-row" style="margin-bottom:10px">
+      <div class="prog-head">
+        <span class="prog-label">${g.nome}</span>
+        <span style="font-size:10px;font-family:var(--ff-m);color:${colors[g.mat]};font-weight:500">${g.count} etapas</span>
+      </div>
+      <div class="prog-track">
+        <div class="prog-fill" style="width:${(g.count/max*100).toFixed(0)}%;background:${colors[g.mat]}"></div>
+      </div>
+    </div>
+  `).join('');
+  document.getElementById('top-groups-chart').innerHTML = html;
+  // trigger animation
+  setTimeout(()=>{
+    document.querySelectorAll('.prog-fill').forEach(el=>{
+      el.style.width = el.style.width; // force repaint
+    });
+  },100);
+}
+
+// ── RENDER FLEET ─────────────────────────────────────────────────────────
+function renderFleet(){
+  const matCol = {aco:'linear-gradient(135deg,#1c3d6a,#2d5a90)',wood:'linear-gradient(135deg,#4a2810,#6b3e1e)'};
+  const matLabel = {aco:'Aço Naval',wood:'Madeira'};
+  const html = frota.map(f=>{
+    const compsHtml = f.comps.map(c=>`
+      <div class="fleet-comp-row">
+        <span class="fleet-comp-name">${c}</span>
+      </div>
+    `).join('');
+    return `
+      <div class="fleet-card">
+        <div class="fleet-head" style="background:${matCol[f.mat]}">
+          <div>
+            <div class="fleet-id">${f.id}</div>
+            <div class="fleet-name">${f.nome}</div>
+            <div class="fleet-type">${matLabel[f.mat]}</div>
+          </div>
+        </div>
+        <div class="fleet-body">${compsHtml}</div>
+        <div class="fleet-footer">
+          <span class="fleet-total"><span class="fleet-total-n">${f.comps.length + 1}</span> bens cadastrados</span>
+          <span class="fleet-badge ${f.pend?'pend':'ok'}">${f.pend?'⚠ Pendente':'✓ Ativo'}</span>
+        </div>
+      </div>
+    `;
+  }).join('');
+  document.getElementById('fleet-grid').innerHTML = html;
+}
+
+// ── RENDER INSTRUCOES ─────────────────────────────────────────────────────
+let activeFreq = '';
+let activeMat  = '';
+
+function renderInstrucoes(){
+  const q = (document.getElementById('ins-search')?.value||'').toLowerCase();
+  const filtered = instrucoes.filter(i=>{
+    if(activeFreq && i.freq !== activeFreq) return false;
+    if(activeMat  && i.mat  !== activeMat)  return false;
+    if(q && !i.cod.toLowerCase().includes(q) && !i.desc.toLowerCase().includes(q) && !i.grupo.toLowerCase().includes(q)) return false;
+    return true;
+  });
+  const matLabel = {aco:'<span class="td-mat-aco">Aço Naval</span>',wood:'<span class="td-mat-mad">Madeira</span>'};
+  const tbody = document.getElementById('ins-tbody');
+  if(!tbody) return;
+  tbody.innerHTML = filtered.map(i=>`
+    <tr>
+      <td class="td-code">${i.cod}</td>
+      <td style="max-width:380px">${i.desc}</td>
+      <td style="font-size:10px;color:var(--ink2)">${i.grupo}</td>
+      <td class="td-code" style="color:var(--teal)">${i.tar}</td>
+      <td>${matLabel[i.mat]}</td>
+      <td><span class="freq ${i.freq}">${i.freq.toUpperCase()}</span></td>
+    </tr>
+  `).join('');
+  const badge = document.getElementById('ins-count-badge');
+  if(badge) badge.textContent = `${filtered.length} instruções`;
+}
+
+function filterInstrucoes(){renderInstrucoes()}
+function filterByFreq(f){
+  activeFreq = f === activeFreq ? '' : f;
+  renderInstrucoes();
+}
+function filterByMat(m){
+  activeMat = m === activeMat ? '' : m;
+  renderInstrucoes();
+}
+
+// ── RENDER FREQ BLOCKS ─────────────────────────────────────────────────────
+function renderFreqBlocks(){
+  const el = document.getElementById('freq-blocks');
+  if(!el) return;
+  const cfg = [
+    {key:'semanal',label:'Semanal',color:'#1e3a6e',bg:'rgba(30,58,110,.07)'},
+    {key:'mensal',label:'Mensal',color:'#14542E',bg:'rgba(20,84,46,.07)'},
+    {key:'semestral',label:'Semestral',color:'#92420A',bg:'rgba(146,66,10,.07)'},
+    {key:'anual',label:'Anual',color:'#7F1616',bg:'rgba(127,22,22,.07)'},
+  ];
+  el.innerHTML = cfg.map(c=>`
+    <div class="freq-block">
+      <div class="freq-label-col">
+        <div class="freq-dot" style="background:${c.color}"></div>
+        <div>
+          <div class="freq-col-label" style="color:${c.color}">${c.label}</div>
+          <div class="freq-col-count">${freqGroups[c.key].length} grupos</div>
+        </div>
+      </div>
+      <div class="freq-items">
+        ${freqGroups[c.key].map(g=>`<div class="freq-item ${c.key}">${g}</div>`).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+// ── PAGE NAVIGATION ──────────────────────────────────────────────────────
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  event.target.classList.add('active');
+
+  // Lazy render
+  if(id==='frota') renderFleet();
+  if(id==='instrucoes') renderInstrucoes();
+  if(id==='frequencias') renderFreqBlocks();
+}
+
+// ── INIT ─────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded',()=>{
+  renderTopGroups();
+});
+</script>
+</body>
+</html>
